@@ -4,11 +4,13 @@ const qrInput = document.getElementById('qrText');
 const genBtn = document.getElementById('genBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 
-// Function to generate QR
 const generateQR = (text) => {
-    qrContainer.innerHTML = ""; // Clear previous
-    
-    // Generate new QR
+    // 1. Clear previous QR and reset UI
+    qrContainer.innerHTML = ""; 
+    downloadBtn.classList.remove('active');
+    qrBox.classList.remove('show-qr');
+
+    // 2. Generate new QR
     new QRCode(qrContainer, {
         text: text,
         width: 200,
@@ -18,40 +20,41 @@ const generateQR = (text) => {
         correctLevel : QRCode.CorrectLevel.H
     });
 
-    // Add classes for styling/animation
+    // 3. Expand the container
     qrBox.classList.add('show-qr');
-    qrContainer.style.border = "1px solid #ddd"; // Add subtle border around QR
     
-    // Logic for Download Button
-    setTimeout(() => {
+    // 4. MOBILE FIX: Poll for the image
+    // QRCode.js creates a canvas and then an img. 
+    // On mobile, the img.src takes a few milliseconds to populate.
+    let checkInterval = setInterval(() => {
         const qrImage = qrContainer.querySelector('img');
-        if (qrImage && qrImage.src) {
+        
+        // Check if image exists and has a valid Base64 source
+        if (qrImage && qrImage.getAttribute('src')) {
             downloadBtn.setAttribute('href', qrImage.src);
-            downloadBtn.classList.add('active'); // Trigger animation
+            downloadBtn.classList.add('active');
+            clearInterval(checkInterval); // Stop polling once found
         }
     }, 100);
+
+    // Safety timeout: Stop looking after 3 seconds
+    setTimeout(() => clearInterval(checkInterval), 3000);
 };
 
-// Event Listener
 genBtn.addEventListener('click', () => {
     const text = qrInput.value.trim();
     
     if (text.length > 0) {
-        // Remove error class if present
         qrInput.classList.remove('error');
         generateQR(text);
     } else {
-        // Add error class to shake input
         qrInput.classList.add('error');
-        
-        // Remove class after animation finishes so it can run again
         setTimeout(() => {
             qrInput.classList.remove('error');
         }, 400);
     }
 });
 
-// Optional: Allow "Enter" key to trigger generation
 qrInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         genBtn.click();

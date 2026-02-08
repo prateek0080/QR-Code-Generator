@@ -11,18 +11,15 @@
 body {
     min-height: 100vh;
     width: 100%;
-    /* Modern Animated Gradient Background */
     background: linear-gradient(45deg, #667eea, #764ba2, #6B8DD6, #8E37D7);
     background-size: 300% 300%;
     animation: gradientBG 10s ease infinite;
-    
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px; /* Padding prevents edge touching on mobile */
+    padding: 20px;
 }
 
-/* Background Animation */
 @keyframes gradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -31,13 +28,11 @@ body {
 
 .container {
     width: 100%;
-    max-width: 400px; /* Responsive Width */
+    max-width: 400px;
     background: #ffffff;
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    
-    /* Entry Animation */
     opacity: 0;
     transform: translateY(20px);
     animation: fadeIn 0.8s forwards;
@@ -90,7 +85,6 @@ header p {
     outline: none;
 }
 
-/* Shake Animation for Error */
 .error {
     animation: shake 0.4s ease-in-out;
     border-color: #ff4757 !important;
@@ -102,36 +96,31 @@ header p {
     75% { transform: translateX(5px); }
 }
 
-/* QR Code Display Area */
 #qr-box {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 0;
+    height: 0;
     overflow: hidden;
-    transition: all 0.5s ease;
-    margin-bottom: 0; /* No margin initially */
+    transition: height 0.4s ease;
+}
+
+#qr-box.show-qr {
+    height: 220px;
+    margin-bottom: 20px;
 }
 
 #qrContainer {
     padding: 10px;
     background: #fff;
     border-radius: 10px;
-    border: 1px solid transparent;
-    transition: all 0.3s ease;
-}
-
-/* The 'active' class triggers the expansion and border */
-#qr-box.show-qr {
-    margin-bottom: 20px;
-    min-height: 220px; /* Space for QR */
+    border: 1px solid #ddd;
 }
 
 #qrContainer img {
     width: 100%;
     border-radius: 5px;
-    /* Pop-in animation for the image */
     animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -140,12 +129,10 @@ header p {
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* Buttons */
 .btn {
     width: 100%;
     height: 55px;
     border: none;
-    outline: none;
     border-radius: 10px;
     font-size: 16px;
     font-weight: 500;
@@ -165,11 +152,6 @@ header p {
 
 .generate-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-}
-
-.generate-btn:active {
-    transform: scale(0.98);
 }
 
 .download-btn {
@@ -177,20 +159,17 @@ header p {
     color: #667eea;
     border: 1px solid #667eea;
     margin-top: 15px;
-    
-    /* Hidden logic */
-    display: none; 
+    display: none; /* Keep hidden until QR is ready */
     opacity: 0;
-    transform: translateY(10px);
 }
 
-/* Class to reveal download button */
 .download-btn.active {
     display: flex;
     animation: slideUp 0.5s forwards;
 }
 
 @keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
