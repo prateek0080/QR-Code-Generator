@@ -6,26 +6,40 @@
     <title>Modern QR Generator</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     
     <div class="container">
         <header>
-            <h1>QR Code Generator</h1>
+            <h1><i class="fas fa-qrcode"></i> QR Code Generator</h1>
             <p>Paste a URL or enter text to create a QR code</p>
         </header>
 
         <div class="input-form">
-            <label for="qrText">Content</label>
+            <label for="qrText"><i class="fas fa-pen"></i> Content</label>
             <input type="text" id="qrText" placeholder="Enter text or URL here" autocomplete="off">
+            <div class="error-message" id="errorMsg"></div>
         </div>
 
         <div id="qr-box">
             <div id="qrContainer"></div>
+            <div class="qr-placeholder" id="qrPlaceholder">
+                <i class="fas fa-qrcode"></i>
+                <p>Your QR code will appear here</p>
+            </div>
         </div>
 
-        <button type="button" class="btn generate-btn" id="genBtn">Generate QR Code</button>
-        <a href="#" class="btn download-btn" id="downloadBtn" download="MyQRCode.png">Download QR Code</a>
+        <button type="button" class="btn generate-btn" id="genBtn">
+            <i class="fas fa-bolt"></i> Generate QR Code
+        </button>
+        <a href="#" class="btn download-btn" id="downloadBtn" download="MyQRCode.png">
+            <i class="fas fa-download"></i> Download QR Code
+        </a>
+        
+        <div class="tips">
+            <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> You can scan this QR code with any smartphone camera</p>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
